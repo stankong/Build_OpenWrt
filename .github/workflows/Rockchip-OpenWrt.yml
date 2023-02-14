@@ -29,7 +29,10 @@ env:
 jobs:
   Toolchain:
     runs-on: ubuntu-22.04
-
+    permissions:
+      # Need permission to write to the Releases tab now.
+      # https://github.com/ncipollo/release-action/issues/208.
+      contents: write
     outputs:
       OPENWRT_PATH: ${{ steps.clone.outputs.OPENWRT_PATH }}
       VERSION_INFO: ${{ steps.clone.outputs.VERSION_INFO }}
@@ -166,7 +169,10 @@ jobs:
   Build:
     needs: [Toolchain]
     runs-on: ubuntu-22.04
-
+    permissions:
+      # Need permission to write to the Releases tab now.
+      # https://github.com/ncipollo/release-action/issues/208.
+      contents: write
     env:
       OPENWRT_PATH: ${{ needs.Toolchain.outputs.OPENWRT_PATH }}
       VERSION_INFO: ${{ needs.Toolchain.outputs.VERSION_INFO }}
